@@ -1,3 +1,5 @@
+# From https://github.com/chucknorris-io/chuck-db
+
 INSERT INTO joke (created_at, joke_id, updated_at, value) VALUES ('2016-05-01 10:51:41.584544', 'zdj0bfkjsmup6pkb2rpmbw', '2016-05-01 10:51:41.584544', 'Chuck Norris is the only human being to display the Heisenberg uncertainty principle - you can never know both exactly where and how quickly he will roundhouse-kick you in the face.');
 INSERT INTO joke (created_at, joke_id, updated_at, value) VALUES ('2016-05-01 10:51:41.584544', 'x5whniztqdancooc9w-ggg', '2016-05-01 10:51:41.584544', 'Chuck Norris invented the bolt-action rifle, liquor, sexual intercourse, and football-- in that order.');
 INSERT INTO joke (created_at, joke_id, updated_at, value) VALUES ('2016-05-01 10:51:41.584544', 'czOG2URYTx6USbXqYObkaA', '2016-05-01 10:51:41.584544', 'Chuck Norris invented a new martial arts style: Chuck-Will-Kill.');
