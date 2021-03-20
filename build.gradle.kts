@@ -59,7 +59,6 @@ dependencies {
     // Koin
     implementation("org.koin:koin-ktor:$koin_version")
     implementation("org.koin:koin-logger-slf4j:$koin_version")
-    implementation("junit:junit:4.12")
 
     // Liquibase
     liquibaseRuntime("org.liquibase:liquibase-core:$liquibase_core")
@@ -72,7 +71,7 @@ dependencies {
     testImplementation("io.ktor:ktor-server-tests:$ktor_version")
     testImplementation("com.h2database:h2:$h2_version")
     testImplementation("org.koin:koin-test:$koin_version")
-
+    testImplementation("junit:junit:4.12")
 
 }
 
