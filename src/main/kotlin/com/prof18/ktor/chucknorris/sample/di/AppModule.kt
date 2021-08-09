@@ -7,6 +7,8 @@ import com.prof18.ktor.chucknorris.sample.features.jokes.data.JokeLocalDataSourc
 import com.prof18.ktor.chucknorris.sample.features.jokes.data.JokeLocalDataSourceImpl
 import com.prof18.ktor.chucknorris.sample.features.jokes.domain.JokeRepository
 import com.prof18.ktor.chucknorris.sample.features.jokes.domain.JokeRepositoryImpl
+import com.prof18.ktor.chucknorris.sample.jobs.JobFactory
+import com.prof18.ktor.chucknorris.sample.jobs.JobSchedulerManager
 import org.koin.dsl.module
 import org.koin.experimental.builder.single
 import org.koin.experimental.builder.singleBy
@@ -17,5 +19,6 @@ val appModule = module {
     singleBy<DatabaseFactory, DatabaseFactoryImpl>()
     singleBy<JokeLocalDataSource, JokeLocalDataSourceImpl>()
     singleBy<JokeRepository, JokeRepositoryImpl>()
-
+    single<JobSchedulerManager>()
+    single<JobFactory>()
 }

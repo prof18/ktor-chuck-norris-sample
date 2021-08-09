@@ -67,6 +67,9 @@ dependencies {
     liquibaseRuntime("ch.qos.logback:logback-classic:1.2.3")
     liquibaseRuntime("javax.xml.bind:jaxb-api:2.2.4")
 
+    // Quartz, for CRON
+    implementation("org.quartz-scheduler:quartz:2.3.2")
+
     // Testing
     testImplementation("io.ktor:ktor-server-tests:$ktor_version")
     testImplementation("com.h2database:h2:$h2_version")

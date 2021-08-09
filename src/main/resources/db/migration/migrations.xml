@@ -14,4 +14,9 @@
         <sqlFile path="src/main/resources/db/migration/changesets/changeset-202102281050.sql"/>
     </changeSet>
 
+    <changeSet id="202108092035" author="Marco">
+        <comment>Tables for Quartz</comment>
+        <sqlFile path="src/main/resources/db/migration/changesets/changeset-202108092035.sql"/>
+    </changeSet>
+
 </databaseChangeLog>

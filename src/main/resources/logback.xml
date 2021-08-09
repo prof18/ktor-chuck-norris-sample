@@ -29,4 +29,5 @@
     </root>
     <logger name="org.eclipse.jetty" level="INFO"/>
     <logger name="io.netty" level="INFO"/>
+    <logger name="org.quartz" level="INFO"/>
 </configuration>

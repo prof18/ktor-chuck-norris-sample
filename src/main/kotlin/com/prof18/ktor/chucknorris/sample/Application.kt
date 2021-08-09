@@ -6,6 +6,8 @@ import com.prof18.ktor.chucknorris.sample.config.setupConfig
 import com.prof18.ktor.chucknorris.sample.database.DatabaseFactory
 import com.prof18.ktor.chucknorris.sample.di.appModule
 import com.prof18.ktor.chucknorris.sample.features.jokes.resource.jokeEndpoint
+import com.prof18.ktor.chucknorris.sample.jobs.JobFactory
+import com.prof18.ktor.chucknorris.sample.jobs.JobSchedulerManager
 import io.ktor.application.*
 import io.ktor.features.*
 import io.ktor.http.content.*
@@ -49,6 +51,13 @@ fun Application.module(testing: Boolean = false, koinModules: List<Module> = lis
 
     val databaseFactory by inject<DatabaseFactory>()
     databaseFactory.connect()
+
+    if (!testing) {
+        val jobSchedulerManager by inject<JobSchedulerManager>()
+        val jobFactory by inject<JobFactory>()
+        jobSchedulerManager.startScheduler()
+        jobSchedulerManager.scheduler.setJobFactory(jobFactory)
+    }
 
     install(ContentNegotiation) {
         json()
