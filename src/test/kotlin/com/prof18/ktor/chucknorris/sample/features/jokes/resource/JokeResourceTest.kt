@@ -10,17 +10,17 @@ import io.ktor.http.*
 import io.ktor.locations.*
 import io.ktor.server.testing.*
 import io.ktor.util.*
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.koin.dsl.module
-import org.koin.experimental.builder.singleBy
 import org.koin.test.AutoCloseKoinTest
 import java.time.LocalDateTime
 
-@KtorExperimentalAPI
+@ExperimentalSerializationApi
 @KtorExperimentalLocationsAPI
 class JokeResourceTest : AutoCloseKoinTest() {
 
@@ -29,7 +29,7 @@ class JokeResourceTest : AutoCloseKoinTest() {
         koinModules = appTestModule.plus(
             module {
                 // Just to showcase the possibility, in this case this dependency can be put in the base test module
-                singleBy<JokeRepository, JokeRepositoryImpl>()
+                single<JokeRepository> { JokeRepositoryImpl(get(), get()) }
             }
         )
     ) {

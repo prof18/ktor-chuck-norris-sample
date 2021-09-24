@@ -1,9 +1,14 @@
 package com.prof18.ktor.chucknorris.sample.features.jokes.domain
 
+import com.prof18.ktor.chucknorris.sample.config.AppConfig
+import com.prof18.ktor.chucknorris.sample.config.DatabaseConfig
+import com.prof18.ktor.chucknorris.sample.config.ServerConfig
 import com.prof18.ktor.chucknorris.sample.features.jokes.data.JokeLocalDataSource
 import com.prof18.ktor.chucknorris.sample.features.jokes.data.JokeLocalDataSourceImpl
 import com.prof18.ktor.chucknorris.sample.features.jokes.data.dao.Joke
+import com.prof18.ktor.chucknorris.sample.jobs.JobSchedulerManager
 import com.prof18.ktor.chucknorris.sample.testutils.database.DatabaseFactoryForUnitTest
+import com.prof18.ktor.chucknorris.sample.testutils.getAppConfigForUnitTest
 import kotlinx.coroutines.runBlocking
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.junit.After
@@ -12,7 +17,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.koin.dsl.module
-import org.koin.experimental.builder.singleBy
+import org.koin.dsl.single
 import org.koin.test.KoinTest
 import org.koin.test.KoinTestRule
 import org.koin.test.inject
@@ -26,8 +31,10 @@ class JokeRepositoryImplTest : KoinTest {
     val koinTestRule = KoinTestRule.create {
         // Your KoinApplication instance here
         modules(module {
-            singleBy<JokeLocalDataSource, JokeLocalDataSourceImpl>()
-            singleBy<JokeRepository, JokeRepositoryImpl>()
+            single<JobSchedulerManager>()
+            single<AppConfig> { getAppConfigForUnitTest() }
+            single<JokeLocalDataSource> { JokeLocalDataSourceImpl() }
+            single<JokeRepository> { JokeRepositoryImpl(get(), get()) }
         })
     }
 

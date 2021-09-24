@@ -10,15 +10,14 @@ import com.prof18.ktor.chucknorris.sample.features.jokes.domain.JokeRepositoryIm
 import com.prof18.ktor.chucknorris.sample.jobs.JobFactory
 import com.prof18.ktor.chucknorris.sample.jobs.JobSchedulerManager
 import org.koin.dsl.module
-import org.koin.experimental.builder.single
-import org.koin.experimental.builder.singleBy
+import org.koin.dsl.single
 
 val appModule = module {
     // Backend Config
     single<AppConfig>()
-    singleBy<DatabaseFactory, DatabaseFactoryImpl>()
-    singleBy<JokeLocalDataSource, JokeLocalDataSourceImpl>()
-    singleBy<JokeRepository, JokeRepositoryImpl>()
+    single<DatabaseFactory> { DatabaseFactoryImpl(get()) }
+    single<JokeLocalDataSource> { JokeLocalDataSourceImpl() }
+    single<JokeRepository> { JokeRepositoryImpl(get(), get()) }
     single<JobSchedulerManager>()
     single<JobFactory>()
 }

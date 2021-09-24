@@ -1,4 +1,3 @@
-import org.jetbrains.kotlin.gradle.dsl.Coroutines
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.util.*
 
@@ -15,8 +14,8 @@ val koin_version: String by project
 
 plugins {
     application
-    kotlin("jvm") version "1.4.30"
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.4.30"
+    kotlin("jvm") version "1.5.30"
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.5.30"
     id("org.liquibase.gradle") version "2.0.4"
     id("org.hidetake.swagger.generator") version "2.18.2"
 
@@ -29,9 +28,7 @@ application {
 }
 
 repositories {
-    mavenLocal()
-    jcenter()
-    maven { url = uri("https://kotlin.bintray.com/ktor") }
+    mavenCentral()
 }
 
 tasks.withType<KotlinCompile>().all {
@@ -57,15 +54,15 @@ dependencies {
     implementation("com.zaxxer:HikariCP:$hikaricp_version")
 
     // Koin
-    implementation("org.koin:koin-ktor:$koin_version")
-    implementation("org.koin:koin-logger-slf4j:$koin_version")
+    implementation("io.insert-koin:koin-ktor:$koin_version")
+    implementation("io.insert-koin:koin-logger-slf4j:$koin_version")
 
     // Liquibase
     liquibaseRuntime("org.liquibase:liquibase-core:$liquibase_core")
     liquibaseRuntime("mysql:mysql-connector-java:$mysql_connector_version")
-    liquibaseRuntime("ch.qos.logback:logback-core:1.2.3")
+    liquibaseRuntime("ch.qos.logback:logback-core:$logback_version")
     liquibaseRuntime("ch.qos.logback:logback-classic:1.2.3")
-    liquibaseRuntime("javax.xml.bind:jaxb-api:2.2.4")
+    liquibaseRuntime("javax.xml.bind:jaxb-api:2.3.1")
 
     // Quartz, for CRON
     implementation("org.quartz-scheduler:quartz:2.3.2")
@@ -73,8 +70,9 @@ dependencies {
     // Testing
     testImplementation("io.ktor:ktor-server-tests:$ktor_version")
     testImplementation("com.h2database:h2:$h2_version")
-    testImplementation("org.koin:koin-test:$koin_version")
-    testImplementation("junit:junit:4.12")
+    testImplementation("io.insert-koin:koin-test:$koin_version")
+    testImplementation("io.insert-koin:koin-test-junit4:$koin_version")
+    testImplementation("junit:junit:4.13.2")
 
 }
 
