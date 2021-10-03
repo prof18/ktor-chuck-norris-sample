@@ -18,7 +18,7 @@ plugins {
     id("org.jetbrains.kotlin.plugin.serialization") version "1.5.30"
     id("org.liquibase.gradle") version "2.0.4"
     id("org.hidetake.swagger.generator") version "2.18.2"
-
+    id("com.github.johnrengelman.shadow") version "7.0.0"
 }
 
 group = "com.prof18.ktor.chucknorris.sample"
@@ -34,6 +34,14 @@ repositories {
 tasks.withType<KotlinCompile>().all {
     kotlinOptions {
         jvmTarget = "11"
+    }
+}
+
+tasks{
+    shadowJar {
+        manifest {
+            attributes(Pair("Main-Class", "io.ktor.server.netty.EngineMain"))
+        }
     }
 }
 
