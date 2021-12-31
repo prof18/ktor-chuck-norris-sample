@@ -23,7 +23,6 @@ class JokeRepositoryImpl(
     }
 
     override suspend fun watch(name: String) {
-        // Schedule a cron every two days to renew the subscription
         val jobId = "chuck-watch-job-for-name-$name"
         val triggerId = "chuck-watch-trigger-for-name-$name"
 

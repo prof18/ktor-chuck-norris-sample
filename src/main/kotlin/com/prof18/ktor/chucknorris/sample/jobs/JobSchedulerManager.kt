@@ -23,8 +23,6 @@ class JobSchedulerManager(appConfig: AppConfig) {
         props["org.quartz.dataSource.mySql.user"] = databaseConfig.user
         props["org.quartz.dataSource.mySql.password"] = databaseConfig.password
         props["org.quartz.dataSource.mySql.maxConnections"] = "10"
-        props["org.quartz.dataSource.mySql.idleConnectionValidationSeconds"] = "50"
-        props["org.quartz.dataSource.mySql.maxIdleTime"] = "60"
 
         props["org.quartz.jobStore.class"] = "org.quartz.impl.jdbcjobstore.JobStoreTX"
         props["org.quartz.jobStore.driverDelegateClass"] = "org.quartz.impl.jdbcjobstore.StdJDBCDelegate"
