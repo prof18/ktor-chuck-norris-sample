@@ -19,6 +19,21 @@ This project contains all the code used in some articles published on my website
 - Article: https://www.marcogomiero.com/posts/2021/ktor-in-memory-db-testing/
 - Code: [part3 branch](https://github.com/prof18/ktor-chuck-norris-sample/tree/part3)
 
+## 4. How to handle database migrations with Liquibase on Ktor
+
+- Article: https://www.marcogomiero.com/posts/2022/ktor-migration-liquibase/
+- Code: [part4 branch](https://github.com/prof18/ktor-chuck-norris-sample/tree/part4)
+
+## 5. Generate API documentation from Swagger on Ktor
+
+- Article: https://www.marcogomiero.com/posts/2022/ktor-setup-documentation/
+- Code: [part5 branch](https://github.com/prof18/ktor-chuck-norris-sample/tree/part5)
+
+## 6. How to schedule jobs with Quartz on Ktor
+
+- Article: https://www.marcogomiero.com/posts/2022/ktor-jobs-quartz/
+- Code: [part6 branch](https://github.com/prof18/ktor-chuck-norris-sample/tree/part6)
+
 ----
 
 The data used for the databases are from the [Chuck Norris IO](https://github.com/chucknorris-io/chuck-db) project.
