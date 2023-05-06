@@ -1,6 +1,6 @@
 # Ktor Chuck Norris Sample
 
-A [Ktor](http://ktor.io) (version 1.6.x) sample project that returns Random Chuck Norris jokes.
+A [Ktor](http://ktor.io) sample project that returns Random Chuck Norris jokes.
 
 This project contains all the code used in some articles published on my website.
 
@@ -33,6 +33,14 @@ This project contains all the code used in some articles published on my website
 
 - Article: https://www.marcogomiero.com/posts/2022/ktor-jobs-quartz/
 - Code: [part6 folder](https://github.com/prof18/ktor-chuck-norris-sample/part6)
+
+## Ktor 1.6.x 
+
+In the [ktor-1.6.x folder](https://github.com/prof18/ktor-chuck-norris-sample/ktor-1.6.x), the entire project is implemented with Ktor 1.6.x.
+
+## Ktor 2.x 
+
+In the [ktor-2.x folder](https://github.com/prof18/ktor-chuck-norris-sample/ktor-2.x), the entire project is implemented with Ktor 1.6.x.
 
 ----
 
