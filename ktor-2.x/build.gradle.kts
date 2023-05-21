@@ -44,7 +44,7 @@ dependencies {
     implementation("io.ktor:ktor-server-host-common:$ktor_version")
     implementation("io.ktor:ktor-server-call-logging:$ktor_version")
     implementation("io.ktor:ktor-server-netty:$ktor_version")
-    implementation("io.ktor:ktor-server-locations:$ktor_version")
+    implementation("io.ktor:ktor-server-resources:$ktor_version")
     implementation("ch.qos.logback:logback-classic:$logback_version")
 
     // Database
@@ -58,6 +58,8 @@ dependencies {
     // Koin
     implementation("io.insert-koin:koin-ktor:$koin_version")
     implementation("io.insert-koin:koin-logger-slf4j:$koin_version")
+    testImplementation("io.ktor:ktor-server-test-host-jvm:2.3.0")
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:1.8.20")
 
     // Liquibase
     liquibaseRuntime("org.liquibase:liquibase-core:$liquibase_core")

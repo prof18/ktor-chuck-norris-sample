@@ -13,10 +13,9 @@ import io.ktor.server.application.Application
 import io.ktor.server.application.call
 import io.ktor.server.application.install
 import io.ktor.server.http.content.staticResources
-import io.ktor.server.locations.KtorExperimentalLocationsAPI
-import io.ktor.server.locations.Locations
 import io.ktor.server.plugins.callloging.CallLogging
 import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.server.resources.Resources
 import io.ktor.server.response.respondText
 import io.ktor.server.routing.get
 import io.ktor.server.routing.routing
@@ -36,7 +35,6 @@ fun main(args: Array<String>): Unit =
  * Please note that you can use any other name instead of *module*.
  * Also note that you can have more then one modules in your application.
  * */
-@OptIn(KtorExperimentalLocationsAPI::class)
 @Suppress("unused") // Referenced in application.conf
 @JvmOverloads
 fun Application.module(testing: Boolean = false, koinModules: List<Module> = listOf(appModule)) {
@@ -73,7 +71,7 @@ fun Application.module(testing: Boolean = false, koinModules: List<Module> = lis
         level = Level.INFO
     }
 
-    install(Locations)
+    install(Resources)
 
     routing {
         jokeEndpoint()

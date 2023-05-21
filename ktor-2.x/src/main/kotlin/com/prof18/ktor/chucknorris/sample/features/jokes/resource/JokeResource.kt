@@ -1,27 +1,24 @@
 package com.prof18.ktor.chucknorris.sample.features.jokes.resource
 
 import com.prof18.ktor.chucknorris.sample.features.jokes.domain.JokeRepository
+import io.ktor.resources.Resource
 import io.ktor.server.application.call
-import io.ktor.server.locations.KtorExperimentalLocationsAPI
-import io.ktor.server.locations.Location
-import io.ktor.server.locations.get
+import io.ktor.server.resources.get
+import io.ktor.server.resources.post
 import io.ktor.server.response.respond
 import io.ktor.server.routing.Route
-import io.ktor.server.routing.post
 import org.koin.ktor.ext.inject
 
-@KtorExperimentalLocationsAPI
-@Location("joke")
+@Resource("joke")
 class JokeEndpoint {
 
-    @Location("/random")
-    class Random(val parent: JokeEndpoint)
+    @Resource("/random")
+    class Random(val parent: JokeEndpoint = JokeEndpoint())
 
-    @Location("/watch/{name}")
-    class Watch(val name: String, val parent: JokeEndpoint)
+    @Resource("/watch/{name}")
+    class Watch(val name: String, val parent: JokeEndpoint = JokeEndpoint())
 }
 
-@KtorExperimentalLocationsAPI
 fun Route.jokeEndpoint() {
 
     val jokeRepository by inject<JokeRepository>()

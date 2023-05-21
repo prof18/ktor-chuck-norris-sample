@@ -6,11 +6,9 @@ import com.prof18.ktor.chucknorris.sample.features.jokes.domain.JokeRepositoryIm
 import com.prof18.ktor.chucknorris.sample.features.jokes.domain.model.JokeDTO
 import com.prof18.ktor.chucknorris.sample.testutils.appTestModule
 import com.prof18.ktor.chucknorris.sample.testutils.withTestServer
-import io.ktor.http.HttpMethod
+import io.ktor.client.call.body
+import io.ktor.client.request.get
 import io.ktor.http.HttpStatusCode
-import io.ktor.server.locations.KtorExperimentalLocationsAPI
-import io.ktor.server.locations.locations
-import io.ktor.server.testing.handleRequest
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
@@ -22,7 +20,6 @@ import org.koin.test.AutoCloseKoinTest
 import java.time.LocalDateTime
 
 @ExperimentalSerializationApi
-@KtorExperimentalLocationsAPI
 class JokeResourceTest : AutoCloseKoinTest() {
 
     @Test
@@ -33,8 +30,7 @@ class JokeResourceTest : AutoCloseKoinTest() {
                 single<JokeRepository> { JokeRepositoryImpl(get(), get()) }
             }
         )
-    ) {
-
+    ) { client ->
         // Setup
         val joke = transaction {
             Joke.new("joke_1") {
@@ -44,19 +40,12 @@ class JokeResourceTest : AutoCloseKoinTest() {
             }
         }
 
-        val href = application.locations.href(
-            JokeEndpoint.Random(
-                parent = JokeEndpoint()
-            )
-        )
+        val response = client.get("/joke/random")
+        assertEquals(HttpStatusCode.OK, response.status)
 
-        handleRequest(HttpMethod.Get, href).apply {
-            assertEquals(HttpStatusCode.OK, response.status())
+        val jokeDto = Json.decodeFromString<JokeDTO>(response.body())
 
-            val response = Json.decodeFromString<JokeDTO>(response.content!!)
-
-            assertEquals(transaction { joke.id.value }, response.jokeId)
-            assertEquals(transaction { joke.value }, response.jokeContent)
-        }
+        assertEquals(transaction { joke.id.value }, jokeDto.jokeId)
+        assertEquals(transaction { joke.value }, jokeDto.jokeContent)
     }
 }

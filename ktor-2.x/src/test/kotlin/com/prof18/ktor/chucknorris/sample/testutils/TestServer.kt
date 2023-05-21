@@ -9,13 +9,13 @@ import com.prof18.ktor.chucknorris.sample.features.jokes.data.JokeLocalDataSourc
 import com.prof18.ktor.chucknorris.sample.jobs.JobSchedulerManager
 import com.prof18.ktor.chucknorris.sample.module
 import com.prof18.ktor.chucknorris.sample.testutils.database.DatabaseFactoryForServerTest
+import io.ktor.client.HttpClient
+import io.ktor.client.request.get
 import io.ktor.server.config.MapApplicationConfig
-import io.ktor.server.locations.KtorExperimentalLocationsAPI
-import io.ktor.server.testing.TestApplicationEngine
-import io.ktor.server.testing.withTestApplication
+import io.ktor.server.testing.testApplication
 import org.koin.core.module.Module
+import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
-import org.koin.dsl.single
 
 fun MapApplicationConfig.createConfigForTesting() {
     // Server config
@@ -30,7 +30,6 @@ fun MapApplicationConfig.createConfigForTesting() {
 }
 
 fun getAppConfigForUnitTest(): AppConfig {
-
     return AppConfig().apply {
         databaseConfig = DatabaseConfig(
             driverClass = "org.h2.Driver",
@@ -43,22 +42,28 @@ fun getAppConfigForUnitTest(): AppConfig {
     }
 }
 
+fun withTestServer(koinModules: List<Module> = listOf(appTestModule), block: suspend (HttpClient) -> Unit) {
+    testApplication {
+        application {
+            module(testing = true, koinModules = koinModules)
+        }
 
-@KtorExperimentalLocationsAPI
-fun withTestServer(koinModules: List<Module> = listOf(appTestModule), block: TestApplicationEngine.() -> Unit) {
-    withTestApplication(
-        {
-            (environment.config as MapApplicationConfig).apply {
+        this.environment {
+            config = MapApplicationConfig().apply {
                 createConfigForTesting()
             }
-            module(testing = true, koinModules = koinModules)
-        }, block
-    )
+        }
+
+        // To set up DI and all the stuff
+        client.get("/")
+
+        block(client)
+    }
 }
 
 val appTestModule = module {
-    single<AppConfig>()
-    single<JobSchedulerManager>()
+    singleOf(::AppConfig)
+    singleOf(::JobSchedulerManager)
     single<DatabaseFactory> { DatabaseFactoryForServerTest(get()) }
     single<JokeLocalDataSource> { JokeLocalDataSourceImpl() }
 }
